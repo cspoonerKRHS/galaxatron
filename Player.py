@@ -1,6 +1,6 @@
 import pygame, sys, math
 
-class PlayerBall():
+class Player():
     def __init__(self, image, speed = (2,2), pos = (0,0), size = (100,100)):
         self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, size)

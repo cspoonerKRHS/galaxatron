@@ -3,7 +3,7 @@ import pygame, sys, math
 pygame.init()
 
 from Ball import Ball
-from PlayerBall import PlayerBall
+from Player import Player
 
 clk = pygame.time.Clock()
 
@@ -19,7 +19,7 @@ ball2 = Ball(["ball1.png", "ball2.png"], (2,5), (width/3, height/3), (125,125))
 ball3 = Ball(["ball1.png", "ball2.png"], (4,7), (450, 125), (100,100))
 ball4 = Ball(["ball1.png", "ball2.png"], (3,5), (500, 300), (200,200))
 
-pBall = PlayerBall("playerBall.png", (3,3), (550,150), (50,50))
+pBall = Player("player.png", (3,3), (550,150), (50,50))
 
 while True:
     for event in pygame.event.get():
