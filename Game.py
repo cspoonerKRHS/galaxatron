@@ -18,12 +18,10 @@ bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
 
-ballp = Player(["rsc/player/playerBall1.png",
-                    "rsc/player/playerBall2.png",
-                    "rsc/player/playerBall3.png"], [3,3], [50,50], [width/2,height/2])
+ballp = Player(["images/player",], [3,3], [50,50], [width/2,height/2])
 
 bsize = random.randint(25, 150)
-balls = [Ball("rsc/enemy/ball.png", 
+balls = [Potato("images/potato", 
               [random.randint(-5,5), random.randint(-5,5)], 
               [bsize, bsize], 
               [random.randint(75, width-75), random.randint(75, height-75)])]

@@ -1,61 +1,90 @@
 import pygame, sys, math
 
 class Player():
-    def __init__(self, image, speed = (2,2), pos = (0,0), size = (100,100)):
-        self.image = pygame.image.load(image)
-        self.image = pygame.transform.scale(self.image, size)
+    def __init__(self, images, speed = [2,2], size = [100,100], pos = (0,0)):
+        self.images = []
+        for image in images:
+            newimage = pygame.image.load(image)
+            newimage = pygame.transform.scale(newimage, size)
+            self.images += [newimage]
+        self.frame = 0
+        self.maxFrame = len(self.images)-1
+        self.waitCount = 0
+        self.waitMax = 10
+        self.image = self.images[self.frame]
         self.rect = self.image.get_rect()
         self.maxSpeedx = speed[0]
         self.maxSpeedy = speed[1]
-        self.speed = [0,0]
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
         self.radius = self.rect.width/2
         self.place(pos)
-        self.didBounce = False
         
-    def update(self):
-        self.didBounce = False
-        self.move()
-        
-    def move(self):
-        self.rect = self.rect.move(self.speed)
+    def place(self, pos):
+        self.rect.center = pos
         
     def direction(self, dir):
         if dir == "right":
-            self.speed[0] = self.maxSpeedx
-        if dir == "left":
-            self.speed[0] = -self.maxSpeedx   
+            self.speedx = self.maxSpeedx
         if dir == "stop right":
-            self.speed[0] = 0  
+            self.speedx = 0
+        if dir == "left":
+            self.speedx = -self.maxSpeedx
         if dir == "stop left":
-            self.speed[0] = 0   
+            self.speedx = 0
         if dir == "up":
-            self.speed[1] = -self.maxSpeedy
-        if dir == "down":
-            self.speed[1] = self.maxSpeedy
+            self.speedy = -self.maxSpeedy
         if dir == "stop up":
-            self.speed[1] = 0  
+            self.speedy = 0
+        if dir == "down":
+            self.speedy = self.maxSpeedy
         if dir == "stop down":
-            self.speed[1] = 0   
+            self.speedy = 0
+    
+    def update(self):
+        self.move()
+        self.animate()
+    
+    def animate(self):
+        if self.waitCount < self.waitMax:
+            self.waitCount += 1
+        else:
+            self.waitCount = 0
+            if self.frame < self.maxFrame:
+                self.frame += 1
+            else:
+                self.frame = 0
+            self.image = self.images[self.frame]
+    
+    def move(self):
+        self.speed = [self.speedx, self.speedy]
+        self.rect = self.rect.move(self.speed)
         
-    def wallBounce(self, width, height):
+    def collideWall(self, width, height):
         if self.rect.left < 0 or self.rect.right > width:
-            self.speed[0] = 0
-            self.didBounce = True
+            self.speedx = 0
         if self.rect.top < 0 or self.rect.bottom > height:
-            self.speed[1] = 0
-            self.didBounce = True
-
-        
-     
+            self.speedy = 0
+            
     def collideBall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                if self.distanceToPoint(other.rect.center) < (self.radius + other.radius):
-                    if not other.didBounce:
-                        other.speed[0] = -other.speed[0]
-                        other.speed[1] = -other.speed[1]
-                        other.didBounce = True
-        
+                if self.radius + other.radius > self.distanceToPoint(other.rect.center):
+                    other.living = False
+                    if self.rect.center[0] < other.rect.center[0]: #self left of other
+                        if other.speedx < 0: #moving left
+                            other.speedx = -other.speedx
+                    if self.rect.center[0] > other.rect.center[0]: #self right of other
+                        if other.speedx > 0: #moving right
+                            other.speedx = -other.speedx
+                    if self.rect.center[1] < other.rect.center[1]: #self above other
+                        if other.speedy < 0: #moving up
+                            other.speedy = -other.speedy
+                    if self.rect.center[1] > other.rect.center[1]:#self below other
+                        if other.speedy > 0: #moving down
+                            other.speedy = -other.speedy
+    
     def distanceToPoint(self, pt):
         x1 = self.rect.center[0]
         y1 = self.rect.center[1]
@@ -64,8 +93,8 @@ class Player():
         
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
     
-    def place(self, pt):
-        self.rect.center = pt
+    
+    
     
     
     
