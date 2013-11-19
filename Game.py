@@ -21,7 +21,7 @@ bgColor = r,g,b = 0,0,0
 ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
 bsize = random.randint(25, 150)
-balls = [Potato("images/potato.png", 
+balls = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
               [random.randint(-5,5), random.randint(-5,5)], 
               [bsize, bsize], 
               [random.randint(75, width-75), random.randint(75, height-75)])]
