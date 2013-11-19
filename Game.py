@@ -93,7 +93,7 @@ while True:
             for i in range(level):
                 print i
                 bsize = random.randint(25, 150)
-                balls += [Potato(["images/potato.png", "images/ghost potato.png",],
+                balls += [Potato(["images/potato.png", "images/Ghost_Potato.png"],
                               [random.randint(-5,5), random.randint(-5,5)], 
                               [bsize, bsize], 
                               [random.randint(75, width-75), random.randint(75, height-75)])]
