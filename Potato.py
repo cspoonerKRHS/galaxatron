@@ -15,7 +15,7 @@ class Potato():
         self.frame = 0
     
     def hit(self):
-        if living:
+        if self.living:
             self.image = pygame.image.load("images/ghost_potato.png")
             #self.image = pygame.transform.scale(self.image, size)
             self.rect = self.image.get_rect()
@@ -31,7 +31,6 @@ class Potato():
         
     def update(self):
         self.move()
-        self.image = self.images[self.frame]
         
     def move(self):
         self.speed = [self.speedx, self.speedy]

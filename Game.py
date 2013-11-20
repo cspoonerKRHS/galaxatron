@@ -64,18 +64,18 @@ while True:
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     ballp.direction("stop down")
 
-        for ball in balls:
-            ball.update()
+        for potato in potatoes:
+            potato.update()
         ballp.update()        
         
-        for ball in balls:
-            ball.collideWall(width, height)
+        for potato in potatoes:
+            potato.collideWall(width, height)
         ballp.collideWall(width, height)
         
-        if len(balls) > 1:
-            for first in range(len(balls)-1):
-                for second in range(first+1,len(balls)):
-                    balls[first].collideBall(balls[second])
+        if len(potatoes) > 1:
+            for first in range(len(potatoes)-1):
+                for second in range(first+1,len(potatoes)):
+                    potatoes[first].collideBall(potatoes[second])
         
         for potato in potatoes:
             ballp.collideBall(potato)
@@ -98,7 +98,7 @@ while True:
                           
         screen.blit(bgImage, bgRect)
         screen.blit(ballp.image, ballp.rect)
-        for ball in balls:
+        for ball in potatoes:
             screen.blit(ball.image, ball.rect)
         pygame.display.flip()
         clock.tick(60)
