@@ -20,10 +20,8 @@ bgColor = r,g,b = 0,0,0
 
 ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
-bsize = random.randint(25, 150)
-balls = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
-              [random.randint(-5,5), random.randint(-5,5)], 
-              [bsize, bsize], 
+potatoes = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
+              [random.randint(-5,5), random.randint(-5,5)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
               
 start = False
@@ -80,23 +78,25 @@ while True:
                 for second in range(first+1,len(balls)):
                     balls[first].collideBall(balls[second])
         
-        for ball in balls:
-            ballp.collideBall(ball)
+        for potato in potatoes:
+            ballp.collideBall(potato)
+                
             
-        for ball in balls:
-            if not ball.living:
-                balls.remove(ball)
+            
+        deadcount= 0
+        for potato in potatoes:
+            if not potato.living:
+                deadcount+= 1
                 
         
-        if len(balls) == 0:
+        if len(potatoes) == deadcount:
             level += 1
-            for i in range(level):
-                print i
-                bsize = random.randint(25, 150)
-                balls += [Potato(["images/potato.png", "images/Ghost_Potato.png"],
-                              [random.randint(-5,5), random.randint(-5,5)], 
-                              [bsize, bsize], 
-                              [random.randint(75, width-75), random.randint(75, height-75)])]
+            for potato in potatoes:
+                potato.hit()
+            potatoes = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
+                                [random.randint(-5,5), random.randint(-5,5)],  
+                                [random.randint(75, width-75), random.randint(75, height-75)])]
+            
                           
         screen.blit(bgImage, bgRect)
         screen.blit(ballp.image, ballp.rect)
