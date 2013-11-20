@@ -20,8 +20,7 @@ bgColor = r,g,b = 0,0,0
 
 ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
-potatoes = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
-              [random.randint(-5,5), random.randint(-5,5)],  
+potatoes = [Potato([random.randint(-5,5), random.randint(-5,5)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
               
 start = False
@@ -86,15 +85,14 @@ while True:
         deadcount= 0
         for potato in potatoes:
             if not potato.living:
-                deadcount+= 1
+                deadcount += 1
                 
         
         if len(potatoes) == deadcount:
             level += 1
             for potato in potatoes:
                 potato.hit()
-            potatoes = [Potato(["images/potato.png", "images/Ghost_Potato.png"],
-                                [random.randint(-5,5), random.randint(-5,5)],  
+            potatoes = [Potato([random.randint(-5,5), random.randint(-5,5)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
                           
