@@ -92,7 +92,7 @@ while True:
             level += 1
             for potato in potatoes:
                 potato.hit()
-            potatoes = [Potato([random.randint(-5,5), random.randint(-5,5)],  
+            potatoes = [Potato([random.randint(-2,2), random.randint(-5,5)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
                           
