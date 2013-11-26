@@ -18,12 +18,12 @@ class Potato():
         if self.living:
             self.image = pygame.image.load("images/ghost_potato.png")
             #self.image = pygame.transform.scale(self.image, size)
-            self.rect = self.image.get_rect()
+            self.rect = self.image.get_rect(center = self.rect.center)
             self.living = False
         else:
             self.image = pygame.image.load("images/potato.png")
             #self.image = pygame.transform.scale(self.image, size)
-            self.rect = self.image.get_rect()
+            self.rect = self.image.get_rect(center = self.rect.center)
             self.living = True
         
     def place(self, pos):
@@ -35,6 +35,7 @@ class Potato():
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed)
+        # print self.speed
         
     def collideWall(self, width, height):
         if self.rect.left < 0 or self.rect.right > width:

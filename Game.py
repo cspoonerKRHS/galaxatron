@@ -80,19 +80,16 @@ while True:
         for potato in potatoes:
             ballp.collideBall(potato)
                 
-            
-            
-        deadcount= 1
+        deadcount= 0
         for potato in potatoes:
             if not potato.living:
                 deadcount += 1
                 
-        
         if len(potatoes) == deadcount:
             level += 1
             for potato in potatoes:
                 potato.hit()
-            potatoes = [Potato([random.randint(-2,2), random.randint(-5,5)],  
+            potatoes += [Potato([random.randint(-2,2), random.randint(-5,5)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
                           
