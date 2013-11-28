@@ -1,7 +1,7 @@
 import pygame, sys, math
 
 class Potato():
-    def __init__(self, speed = [2,2],  pos = (0,0)):
+    def __init__(self, speed = [5,5],  pos = (0,0)):
         
         self.image = pygame.image.load("images/potato.png")
         #self.image = pygame.transform.scale(self.image, size)
