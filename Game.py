@@ -20,7 +20,7 @@ bgColor = r,g,b = 0,0,0
 
 ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
-potatoes = [Potato([random.randint(-2,2), random.randint(-5,5)],  
+potatoes = [Potato([random.randint(6,6), random.randint(8,8)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
               
 start = False
@@ -89,7 +89,7 @@ while True:
             level += 1
             for potato in potatoes:
                 potato.hit()
-            potatoes += [Potato([random.randint(-2,2), random.randint(-5,5)],  
+            potatoes += [Potato([random.randint(6,6), random.randint(8,8)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
                           
