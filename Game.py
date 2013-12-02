@@ -13,14 +13,14 @@ size = width, height
 
 screen = pygame.display.set_mode(size)
 
-bgImage = pygame.image.load("images/background.png")
+bgImage = pygame.image.load("images/backgrounds/basenoplanet.png")
 bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
 
 ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
-potatoes = [Potato([random.randint(6,6), random.randint(8,8)],  
+potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
               
 start = False
@@ -37,7 +37,7 @@ while True:
         pygame.display.flip()
         clock.tick(60)
     
-    bgImage = pygame.image.load("images/background.png")
+    bgImage = pygame.image.load("images/backgrounds/basenoplanet.png")
     
     level = 1
     
@@ -89,7 +89,7 @@ while True:
             level += 1
             for potato in potatoes:
                 potato.hit()
-            potatoes += [Potato([random.randint(6,6), random.randint(8,8)],  
+            potatoes += [Potato([random.randint(3,3), random.randint(6,6)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
                           

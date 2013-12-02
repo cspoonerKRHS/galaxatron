@@ -13,6 +13,7 @@ class Potato():
         self.place(pos)
         self.living = True
         self.frame = 0
+        self.didhit = False
     
     def hit(self):
         if self.living:
@@ -31,6 +32,7 @@ class Potato():
         
     def update(self):
         self.move()
+        self.didhit = False
         
     def move(self):
         self.speed = [self.speedx, self.speedy]
@@ -38,20 +40,27 @@ class Potato():
         # print self.speed
         
     def collideWall(self, width, height):
-        if self.rect.left < 0 or self.rect.right > width:
-            self.speedx = -self.speedx
-        if self.rect.top < 0 or self.rect.bottom > height:
-            self.speedy = -self.speedy
+        if not self.didhit:
+            if self.rect.left < 0 or self.rect.right > width:
+                self.speedx = -self.speedx
+                self.didhit = True
+            if self.rect.top < 0 or self.rect.bottom > height:
+                self.speedy = -self.speedy
+                self.didhit = True
             
     def collideBall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if self.radius + other.radius > self.distanceToPoint(other.rect.center):
                     if self.rect.center[0] < other.rect.center[0]: #self left of other
-                        if self.speedx > 0: #moving right
-                            self.speedx = -self.speedx
-                        if other.speedx < 0: #moving left
-                            other.speedx = -other.speedx
+                        if not self.didhit:
+                            if self.speedx > 0: #moving right
+                                self.speedx = -self.speedx
+                                self.didhit = True
+                        if not other.didhit:
+                            if other.speedx < 0: #moving left
+                                other.speedx = -other.speedx
+                                other.didhit = True
                     if self.rect.center[0] > other.rect.center[0]: #self right of other
                         if self.speedx < 0: #moving left
                             self.speedx = -self.speedx
