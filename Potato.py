@@ -43,9 +43,13 @@ class Potato():
         if not self.didhit:
             if self.rect.left < 0 or self.rect.right > width:
                 self.speedx = -self.speedx
+                self.move()
+                self.move()
                 self.didhit = True
             if self.rect.top < 0 or self.rect.bottom > height:
                 self.speedy = -self.speedy
+                self.move()
+                self.move()
                 self.didhit = True
             
     def collideBall(self, other):
