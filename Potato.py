@@ -13,6 +13,7 @@ class Potato():
         self.living = True
         self.frame = 0
         self.didhit = False
+        self.hitcounter = 3
     
     def hit(self):
         if self.living:
@@ -31,7 +32,12 @@ class Potato():
         
     def update(self):
         self.move()
-        self.didhit = False
+        if self.didhit:
+            if self.hitcounter > 0:
+                self.hitcounter -= 1
+            else:
+                self.hitcounter = 3
+                self.didhit = False
         
     def move(self):
         self.speed = [self.speedx, self.speedy]
