@@ -7,13 +7,13 @@ from Player import Player
 
 clock = pygame.time.Clock()
 
-width = 640
-height = 480
+width = 800
+height = 600
 size = width, height
 
 screen = pygame.display.set_mode(size)
 
-bgImage = pygame.image.load("images/backgrounds/basenoplanet.png")
+bgImage = pygame.image.load("images/backgrounds/startmenu.png")
 bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
