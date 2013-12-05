@@ -84,7 +84,15 @@ class Player():
                     if self.rect.center[1] > other.rect.center[1]:#self below other
                         if other.speedy > 0: #moving down
                             other.speedy = -other.speedy
-    
+                            
+    def collidePowerUp(self, other):
+        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
+            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
+                if self.radius + other.radius > self.distanceToPoint(other.rect.center):
+                    other.living = False
+                    return True
+        return False
+                    
     def distanceToPoint(self, pt):
         x1 = self.rect.center[0]
         y1 = self.rect.center[1]

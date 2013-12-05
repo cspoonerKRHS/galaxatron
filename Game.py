@@ -4,6 +4,7 @@ pygame.init()
 
 from Potato import Potato
 from Player import Player
+from Slow_Time import SlowTime
 
 clock = pygame.time.Clock()
 
@@ -22,6 +23,8 @@ ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
 
 potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
+              
+powerUps = []
               
 start = False
 while True:
@@ -64,8 +67,14 @@ while True:
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     ballp.direction("stop down")
 
+        if random.randint(0,60) == 0:   #1 in 60 chance
+            powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])
+            
+                    
         for potato in potatoes:
             potato.update()
+        for powerUp in powerUps:
+            powerUp.update()
         ballp.update()        
         
         for potato in potatoes:
@@ -79,8 +88,18 @@ while True:
         
         for potato in potatoes:
             ballp.collideBall(potato)
+        for powerUp in powerUps:
+            if ballp.collidePowerUp(powerUp):
+                if powerUp.type == "slow time":
+                    for potato in potatoes:
+                        potato.slowDown()
                 
         deadcount= 0
+        
+        for powerUp in powerUps:
+            if not powerUp.living:
+                powerUps.remove(powerUp)
+        
         for potato in potatoes:
             if not potato.living:
                 deadcount += 1
@@ -94,8 +113,10 @@ while True:
             
                           
         screen.blit(bgImage, bgRect)
+        for powerUp in powerUps:
+            screen.blit(powerUp.image, powerUp.rect)
         screen.blit(ballp.image, ballp.rect)
-        for ball in potatoes:
-            screen.blit(ball.image, ball.rect)
+        for potato in potatoes:
+            screen.blit(potato.image, potato.rect)
         pygame.display.flip()
         clock.tick(60)
