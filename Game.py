@@ -67,8 +67,8 @@ while True:
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     ballp.direction("stop down")
 
-        if random.randint(0,60) == 0:   #1 in 60 chance
-            powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])
+        if random.randint(0,1000) == 0:   #1 in 60 chance
+            powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])]
             
                     
         for potato in potatoes:

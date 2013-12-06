@@ -100,7 +100,7 @@ class Potato():
                         if other.speedy > 0: #moving down
                             other.speedy = -other.speedy
     
-    def slowDown():
+    def slowDown(self):
         self.slowTimer = self.slowTimeMax-1
         self.speedx = self.slowSpeedx
         self.speedy = self.slowSpeedy
