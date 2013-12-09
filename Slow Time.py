@@ -13,8 +13,11 @@ class SlowTime():
     def place(self, pos):
         self.rect.center = pos
         
-    def update(self):
+    def update():
         if self.timer > 0:
             self.timer -= 1
         else:
             self.living = False
+    
+    
+        

@@ -2,18 +2,25 @@ import pygame, sys, math
 
 class Potato():
     def __init__(self, speed = [5,5],  pos = (0,0)):
-        
         self.image = pygame.image.load("images/potato.png")
         #self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
-        self.speedx = speed[0]
-        self.speedy = speed[1]
+        self.normalSpeedx = speed[0]
+        self.normalSpeedy = speed[1]
+        self.speedx = self.normalSpeedx
+        self.speedy = self.normalSpeedy
+        self.slowSpeedx = int(self.normalSpeedx/2)
+        self.slowSpeedy = int(self.normalSpeedy/2)
         self.speed = [self.speedx, self.speedy]
         self.radius = self.rect.width/2
         self.place(pos)
         self.living = True
         self.frame = 0
         self.didhit = False
+        self.hitcounter = 3
+        self.slowTimeMax = 60*10
+        self.slowTimer = self.slowTimeMax
+        
     
     def hit(self):
         if self.living:
@@ -32,7 +39,19 @@ class Potato():
         
     def update(self):
         self.move()
-        self.didhit = False
+        if self.slowTimer < self.slowTimeMax:
+            if self.slowTimer > 0:
+                self.slowTimer -= 1
+            else:
+                self.slowTimer = self.slowTimeMax
+                self.speedx = self.normalSpeedx
+                self.speedy = self.normalSpeedy
+        if self.didhit:
+            if self.hitcounter > 0:
+                self.hitcounter -= 1
+            else:
+                self.hitcounter = 3
+                self.didhit = False
         
     def move(self):
         self.speed = [self.speedx, self.speedy]
@@ -80,6 +99,12 @@ class Potato():
                             self.speedy = -self.speedy
                         if other.speedy > 0: #moving down
                             other.speedy = -other.speedy
+    
+    def slowDown(self):
+        self.slowTimer = self.slowTimeMax-1
+        self.speedx = self.slowSpeedx
+        self.speedy = self.slowSpeedy
+            
     
     def distanceToPoint(self, pt):
         x1 = self.rect.center[0]
