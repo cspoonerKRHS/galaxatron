@@ -5,6 +5,7 @@ pygame.init()
 from Potato import Potato
 from Player import Player
 from Slow_Time import SlowTime
+from Speed_Time import SpeedTime
 
 clock = pygame.time.Clock()
 altFlag = False
@@ -100,11 +101,16 @@ while True:
         
         for potato in potatoes:
             player.collideBall(potato)
+        
         for powerUp in powerUps:
             if player.collidePowerUp(powerUp):
                 if powerUp.type == "slow time":
                     for potato in potatoes:
                         potato.slowDown()
+                if powerUp.type == "speed time":
+                    for potato in potatoes:
+                        potato.speedUp()
+                        
                 
         deadcount= 0
         

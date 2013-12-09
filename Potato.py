@@ -104,6 +104,11 @@ class Potato():
         self.slowTimer = self.slowTimeMax-1
         self.speedx = self.slowSpeedx
         self.speedy = self.slowSpeedy
+        
+    def speedUp(self):
+        self.speedUp = self.speedTimeMax-1
+        self.speedx = self.upSpeedx
+        self.speedy = self.upSpeedy
             
     
     def distanceToPoint(self, pt):
