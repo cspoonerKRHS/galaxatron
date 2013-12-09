@@ -7,6 +7,9 @@ from Player import Player
 from Slow_Time import SlowTime
 
 clock = pygame.time.Clock()
+altFlag = False
+fullscreen = 0
+
 
 width = 800
 height = 600
@@ -19,7 +22,7 @@ bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
 
-ballp = Player(["images/player.png",], [3,3], [50,50], [width/2,height/2])
+player = Player(["images/player.png",], [5,5], [50,50], [width/2,height/2])
 
 potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
@@ -50,22 +53,31 @@ while True:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    ballp.direction("right")
+                    player.direction("right")
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    ballp.direction("left")
+                    player.direction("left")
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    ballp.direction("up")
+                    player.direction("up")
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    ballp.direction("down")
+                    player.direction("down")
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    ballp.direction("stop right")
+                    player.direction("stop right")
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    ballp.direction("stop left")
+                    player.direction("stop left")
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    ballp.direction("stop up")
+                    player.direction("stop up")
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    ballp.direction("stop down")
+                    player.direction("stop down")
+                elif (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                    altFlag = True
+                elif (event.key == pygame.K_RETURN) and altFlag:
+                    if fullscreen == 0:
+                        fullscreen = pygame.FULLSCREEN
+                    else:
+                        fullscreen = 0
+                    screen = pygame.display.set_mode((width,height),fullscreen)
+                    pygame.display.flip()  
 
         if random.randint(0,1000) == 0:   #1 in 60 chance
             powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])]
@@ -75,11 +87,11 @@ while True:
             potato.update()
         for powerUp in powerUps:
             powerUp.update()
-        ballp.update()        
+        player.update()        
         
         for potato in potatoes:
             potato.collideWall(width, height)
-        ballp.collideWall(width, height)
+        player.collideWall(width, height)
         
         if len(potatoes) > 1:
             for first in range(len(potatoes)-1):
@@ -87,9 +99,9 @@ while True:
                     potatoes[first].collideBall(potatoes[second])
         
         for potato in potatoes:
-            ballp.collideBall(potato)
+            player.collideBall(potato)
         for powerUp in powerUps:
-            if ballp.collidePowerUp(powerUp):
+            if player.collidePowerUp(powerUp):
                 if powerUp.type == "slow time":
                     for potato in potatoes:
                         potato.slowDown()
@@ -115,7 +127,7 @@ while True:
         screen.blit(bgImage, bgRect)
         for powerUp in powerUps:
             screen.blit(powerUp.image, powerUp.rect)
-        screen.blit(ballp.image, ballp.rect)
+        screen.blit(player.image, player.rect)
         for potato in potatoes:
             screen.blit(potato.image, potato.rect)
         pygame.display.flip()
