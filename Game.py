@@ -1,4 +1,4 @@
-import pygame, sys, math, random
+import pygame, sys, math, random, time
 
 pygame.init()
 
@@ -50,7 +50,8 @@ while True:
     
     lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
     lvlRect = lvlImg.get_rect()
-    screen.blit(lvlImg,lvlrect)
+    screen.blit(lvlImg,lvlRect)
+    pygame.display.flip()
     time.sleep(5)
     
     while start:
@@ -133,7 +134,8 @@ while True:
             level += 1
             lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
             lvlRect = lvlImg.get_rect()
-            screen.blit(lvlImg,lvlrect)
+            screen.blit(lvlImg,lvlRect)
+            pygame.display.flip()
             time.sleep(5)
             for potato in potatoes:
                 potato.hit()
