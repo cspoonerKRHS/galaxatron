@@ -48,6 +48,11 @@ while True:
     
     level = 1
     
+    lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
+    lvlRect = lvlImg.get_rect()
+    screen.blit(lvlImg,lvlrect)
+    time.sleep(5)
+    
     while start:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -126,6 +131,10 @@ while True:
                 
         if len(potatoes) == deadcount:
             level += 1
+            lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
+            lvlRect = lvlImg.get_rect()
+            screen.blit(lvlImg,lvlrect)
+            time.sleep(5)
             for potato in potatoes:
                 potato.hit()
             potatoes += [Potato([random.randint(3,3), random.randint(6,6)],  
