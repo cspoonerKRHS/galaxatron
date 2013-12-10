@@ -82,6 +82,8 @@ while True:
 
         if random.randint(0,1000) == 0:   #1 in 60 chance
             powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])]
+        if random.randint(0,1000) == 0:   #1 in 60 chance
+            powerUps += [SpeedTime([random.randint(25, width-25), random.randint(25, height-25)])]
             
                     
         for potato in potatoes:
