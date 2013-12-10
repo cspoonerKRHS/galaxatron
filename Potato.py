@@ -11,6 +11,8 @@ class Potato():
         self.speedy = self.normalSpeedy
         self.slowSpeedx = int(self.normalSpeedx/2)
         self.slowSpeedy = int(self.normalSpeedy/2)
+        self.upSpeedx = int(self.normalSpeedx*2)
+        self.upSpeedy = int(self.normalSpeedy*2)
         self.speed = [self.speedx, self.speedy]
         self.radius = self.rect.width/2
         self.place(pos)
@@ -20,6 +22,8 @@ class Potato():
         self.hitcounter = 3
         self.slowTimeMax = 60*10
         self.slowTimer = self.slowTimeMax
+        self.speedTimeMax = 60*10
+        self.speedTimer = self.speedTimeMax
         
     
     def hit(self):
@@ -44,6 +48,13 @@ class Potato():
                 self.slowTimer -= 1
             else:
                 self.slowTimer = self.slowTimeMax
+                self.speedx = self.normalSpeedx
+                self.speedy = self.normalSpeedy
+        if self.speedTimer < self.speedTimeMax:
+            if self.speedTimer > 0:
+                self.speedTimer -= 1
+            else:
+                self.speedTimer = self.speedTimeMax
                 self.speedx = self.normalSpeedx
                 self.speedy = self.normalSpeedy
         if self.didhit:
@@ -104,6 +115,11 @@ class Potato():
         self.slowTimer = self.slowTimeMax-1
         self.speedx = self.slowSpeedx
         self.speedy = self.slowSpeedy
+        
+    def speedUp(self):
+        self.speedTimer = self.speedTimeMax-1
+        self.speedx = self.upSpeedx
+        self.speedy = self.upSpeedy
             
     
     def distanceToPoint(self, pt):
