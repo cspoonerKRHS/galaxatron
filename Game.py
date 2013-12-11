@@ -118,6 +118,9 @@ while True:
                 if powerUp.type == "speed time":
                     for potato in potatoes:
                         potato.speedUp()
+                if powerUp.type == "Male Enhancement":
+                    for potato in potatoes:
+                        potato.doubleSize()
                         
                 
         deadcount= 0

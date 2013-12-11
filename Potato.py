@@ -2,9 +2,12 @@ import pygame, sys, math
 
 class Potato():
     def __init__(self, speed = [5,5],  pos = (0,0)):
-        self.image = pygame.image.load("images/potato.png")
+        self.baseImage = pygame.image.load("images/potato.png")
+        self.image = self.baseImage
         #self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
+        self.normalSize = self.rect.size
+        self.doubleSize = (self.normalSize[0]*2, self.normalSize[1]*2)
         self.normalSpeedx = speed[0]
         self.normalSpeedy = speed[1]
         self.speedx = self.normalSpeedx
@@ -121,6 +124,9 @@ class Potato():
         self.speedx = self.upSpeedx
         self.speedy = self.upSpeedy
             
+    def doubleSize(self):
+        self.image = pygame.transform.scale(self.baseImage, self.doubleSize)
+        self.rect = self.image.get_rect()
     
     def distanceToPoint(self, pt):
         x1 = self.rect.center[0]
