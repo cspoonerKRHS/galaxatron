@@ -6,6 +6,7 @@ from Potato import Potato
 from Player import Player
 from Slow_Time import SlowTime
 from Speed_Time import SpeedTime
+from Button import Button
 
 clock = pygame.time.Clock()
 altFlag = False
@@ -20,6 +21,8 @@ screen = pygame.display.set_mode(size)
 
 bgImage = pygame.image.load("images/backgrounds/startmenu.png")
 bgRect = bgImage.get_rect()
+
+startbutton = Button("", [275, 537], [325, 125])
 
 bgColor = r,g,b = 0,0,0
 
@@ -36,6 +39,8 @@ while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                startbutton.collidePoint(event.pos)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     start = True
