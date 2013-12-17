@@ -22,9 +22,9 @@ screen = pygame.display.set_mode(size)
 bgImage = pygame.image.load("images/backgrounds/startmenu.png")
 bgRect = bgImage.get_rect()
 
-startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [325, 125])
-
 bgColor = r,g,b = 0,0,0
+
+startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [200, 100])
 
 player = Player(["images/player.png",], [5,5], [50,50], [width/2,height/2])
 
@@ -34,32 +34,48 @@ potatoes = [Potato([random.randint(3,3), random.randint(6,6)],
 powerUps = []
               
 start = False
+cutScreen = False
+level = 0
 while True:
-    while not start:
+    while not start and not cutScreen:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                startbutton.collidePoint(event.pos)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     start = True
+                    cutScreen = True
+                    level = 1
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if startbutton.collidePoint(event.pos):
+                    start = True
+                    cutScreen = True
+                    level = 1
         
         screen.blit(bgImage, bgRect)
+        screen.blit(startbutton.image, startbutton.rect)
         pygame.display.flip()
         clock.tick(60)
     
     bgImage = pygame.image.load("images/backgrounds/basenoplanet.png")
     
-    level = 1
-    
-    lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
-    lvlRect = lvlImg.get_rect()
-    screen.blit(lvlImg,lvlRect)
-    pygame.display.flip()
-    time.sleep(5)
-    
-    while start:
+    while start and cutScreen:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    cutScreen = False
+        
+        player.direction("stop")
+        
+        lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
+        lvlRect = lvlImg.get_rect()
+        screen.blit(lvlImg,lvlRect)
+        pygame.display.flip() 
+        clock.tick(60)
+              
+    while start and not cutScreen:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -129,7 +145,6 @@ while True:
                         
                 
         deadcount= 0
-        
         for powerUp in powerUps:
             if not powerUp.living:
                 powerUps.remove(powerUp)
@@ -140,17 +155,14 @@ while True:
                 
         if len(potatoes) == deadcount:
             level += 1
-            lvlImg = pygame.image.load("Images/backgrounds/level"+str(level)+".png")
-            lvlRect = lvlImg.get_rect()
-            screen.blit(lvlImg,lvlRect)
-            pygame.display.flip()
-            time.sleep(5)
+            cutScreen = True
             for potato in potatoes:
                 potato.hit()
             potatoes += [Potato([random.randint(3,3), random.randint(6,6)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
             
-                          
+            
+                         
         screen.blit(bgImage, bgRect)
         for powerUp in powerUps:
             screen.blit(powerUp.image, powerUp.rect)

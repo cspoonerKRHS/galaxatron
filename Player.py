@@ -41,6 +41,9 @@ class Player():
             self.speedy = self.maxSpeedy
         if dir == "stop down":
             self.speedy = 0
+        if dir == "stop":
+            self.speedx = 0
+            self.speedy = 0
     
     def update(self):
         self.move()
