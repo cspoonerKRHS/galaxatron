@@ -8,7 +8,7 @@ class MaleEnhancement():
         self.radius = self.rect.width/2
         self.place(pos)
         self.living = True
-        self.timer = 60*7
+        self.timer = 60*9
         
     def place(self, pos):
         self.rect.center = pos
