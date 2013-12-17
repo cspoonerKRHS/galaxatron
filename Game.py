@@ -22,7 +22,7 @@ screen = pygame.display.set_mode(size)
 bgImage = pygame.image.load("images/backgrounds/startmenu.png")
 bgRect = bgImage.get_rect()
 
-startbutton = Button("", [275, 537], [325, 125])
+startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [325, 125])
 
 bgColor = r,g,b = 0,0,0
 
@@ -39,7 +39,7 @@ while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 startbutton.collidePoint(event.pos)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
