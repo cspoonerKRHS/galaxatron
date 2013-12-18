@@ -24,7 +24,7 @@ bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
 
-startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [200, 100])
+startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [250, 100])
 
 player = Player(["images/player.png",], [5,5], [50,50], [width/2,height/2])
 
@@ -64,7 +64,7 @@ while True:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_SPACE:
                     cutScreen = False
         
         player.direction("stop")
@@ -97,15 +97,15 @@ while True:
                     player.direction("stop up")
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.direction("stop down")
-                elif (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
                     altFlag = True
-                elif (event.key == pygame.K_RETURN) and altFlag:
+                if (event.key == pygame.K_RETURN) and altFlag:
                     if fullscreen == 0:
                         fullscreen = pygame.FULLSCREEN
                     else:
                         fullscreen = 0
                     screen = pygame.display.set_mode((width,height),fullscreen)
-                    pygame.display.flip()  
+                    pygame.display.flip()
 
         if random.randint(0,1000) == 0:   #1 in 60 chance
             powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])]
