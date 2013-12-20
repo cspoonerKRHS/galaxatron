@@ -64,8 +64,21 @@ while True:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE or (event.key == pygame.K_RETURN and not altFlag):
                     cutScreen = False
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                        altFlag = True
+                if (event.key == pygame.K_RETURN) and altFlag:
+                    if fullscreen == 0:
+                        fullscreen = pygame.FULLSCREEN
+                    else:
+                        fullscreen = 0
+                    screen = pygame.display.set_mode((width,height),fullscreen)
+                    pygame.display.flip()
+            if event.type == pygame.KEYUP:
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                    altFlag = False
+              
         
         player.direction("stop")
         
@@ -88,6 +101,15 @@ while True:
                     player.direction("up")
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.direction("down")
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                    altFlag = True
+                if (event.key == pygame.K_RETURN) and altFlag:
+                    if fullscreen == 0:
+                        fullscreen = pygame.FULLSCREEN
+                    else:
+                        fullscreen = 0
+                    screen = pygame.display.set_mode((width,height),fullscreen)
+                    pygame.display.flip()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.direction("stop right")
@@ -98,14 +120,8 @@ while True:
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.direction("stop down")
                 if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
-                    altFlag = True
-                if (event.key == pygame.K_RETURN) and altFlag:
-                    if fullscreen == 0:
-                        fullscreen = pygame.FULLSCREEN
-                    else:
-                        fullscreen = 0
-                    screen = pygame.display.set_mode((width,height),fullscreen)
-                    pygame.display.flip()
+                    altFlag = False
+                
 
         if random.randint(0,1000) == 0:   #1 in 60 chance
             powerUps += [SlowTime([random.randint(25, width-25), random.randint(25, height-25)])]

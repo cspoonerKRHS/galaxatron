@@ -84,35 +84,43 @@ class Potato():
                 self.move()
                 self.move()
                 self.didhit = True
+        
+        if self.rect.left < 0:
+            self.rect.left = 1
+        elif self.rect.right > width:
+            self.rect.right = width-1
+        if self.rect.top < 0:
+            self.rect.top = 1
+        elif self.rect.bottom > height:
+            self.rect.bottom = height-1
             
     def collideBall(self, other):
         if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
             if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
                 if self.radius + other.radius > self.distanceToPoint(other.rect.center):
-                    if self.rect.center[0] < other.rect.center[0]: #self left of other
-                        if not self.didhit:
+                    if not self.didhit:
+                        self.didhit = True
+                        if self.rect.center[0] < other.rect.center[0]: #self left of other
                             if self.speedx > 0: #moving right
+                                    self.speedx = -self.speedx
+                            if not other.didhit:
+                                if other.speedx < 0: #moving left
+                                    other.speedx = -other.speedx
+                        if self.rect.center[0] > other.rect.center[0]: #self right of other
+                            if self.speedx < 0: #moving left
                                 self.speedx = -self.speedx
-                                self.didhit = True
-                        if not other.didhit:
-                            if other.speedx < 0: #moving left
+                            if other.speedx > 0: #moving right
                                 other.speedx = -other.speedx
-                                other.didhit = True
-                    if self.rect.center[0] > other.rect.center[0]: #self right of other
-                        if self.speedx < 0: #moving left
-                            self.speedx = -self.speedx
-                        if other.speedx > 0: #moving right
-                            other.speedx = -other.speedx
-                    if self.rect.center[1] < other.rect.center[1]: #self above other
-                        if self.speedy > 0: #moving down
-                            self.speedy = -self.speedy
-                        if other.speedy < 0: #moving up
-                            other.speedy = -other.speedy
-                    if self.rect.center[1] > other.rect.center[1]:#self below other
-                        if self.speedy < 0: #moving up
-                            self.speedy = -self.speedy
-                        if other.speedy > 0: #moving down
-                            other.speedy = -other.speedy
+                        if self.rect.center[1] < other.rect.center[1]: #self above other
+                            if self.speedy > 0: #moving down
+                                self.speedy = -self.speedy
+                            if other.speedy < 0: #moving up
+                                other.speedy = -other.speedy
+                        if self.rect.center[1] > other.rect.center[1]:#self below other
+                            if self.speedy < 0: #moving up
+                                self.speedy = -self.speedy
+                            if other.speedy > 0: #moving down
+                                other.speedy = -other.speedy
     
     def slowDown(self):
         self.slowTimer = self.slowTimeMax-1
