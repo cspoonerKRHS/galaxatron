@@ -48,6 +48,7 @@ while True:
                     level = 1
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if startbutton.collidePoint(event.pos):
+                
                     start = True
                     cutScreen = True
                     level = 1

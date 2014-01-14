@@ -1,6 +1,6 @@
 import pygame, sys, math
 
-class Potato():                   .
+class Potato():
     def __init__(self, speed = [5,5],  pos = (0,0)):
         self.baseImage = pygame.image.load("images/potato.png")
         self.image = self.baseImage
