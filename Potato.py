@@ -2,7 +2,7 @@ import pygame, sys, math
 
 class Potato():
     def __init__(self, speed = [5,5],  pos = (0,0)):
-        self.baseImage = pygame.image.load("images/potato.png")
+        self.baseImage = pygame.image.load("Images/Potato.png")
         self.image = self.baseImage
         #self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
@@ -31,12 +31,12 @@ class Potato():
     
     def hit(self):
         if self.living:
-            self.image = pygame.image.load("images/ghost_potato.png")
+            self.image = pygame.image.load("Images/Ghost_Potato.png")
             #self.image = pygame.transform.scale(self.image, size)
             self.rect = self.image.get_rect(center = self.rect.center)
             self.living = False
         else:
-            self.image = pygame.image.load("images/potato.png")
+            self.image = pygame.image.load("Images/Potato.png")
             #self.image = pygame.transform.scale(self.image, size)
             self.rect = self.image.get_rect(center = self.rect.center)
             self.living = True

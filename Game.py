@@ -19,14 +19,14 @@ size = width, height
 
 screen = pygame.display.set_mode(size)
 
-bgImage = pygame.image.load("images/backgrounds/startmenu.png")
+bgImage = pygame.image.load("Images/backgrounds/startmenu.png")
 bgRect = bgImage.get_rect()
 
 bgColor = r,g,b = 0,0,0
 
-startbutton = Button("images/backgrounds/startbutton.png", [width/2, height/2], [250, 100])
+startbutton = Button("Images/backgrounds/startbutton.png", [width/2, height/2], [250, 100])
 
-player = Player(["images/player.png",], [5,5], [50,50], [width/2,height/2])
+player = Player(["Images/Player.png",], [5,5], [50,50], [width/2,height/2])
 
 potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
@@ -58,7 +58,7 @@ while True:
         pygame.display.flip()
         clock.tick(60)
     
-    bgImage = pygame.image.load("images/backgrounds/basenoplanet.png")
+    bgImage = pygame.image.load("Images/backgrounds/basenoplanet.png")
     
     while start and cutScreen:
         for event in pygame.event.get():
