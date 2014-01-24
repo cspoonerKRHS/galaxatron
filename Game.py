@@ -26,6 +26,8 @@ bgColor = r,g,b = 0,0,0
 
 startbutton = Button("Images/backgrounds/startbutton.png", [width/2, height/2], [250, 100])
 
+keyboardoption = Button("Images/backgrounds/mousebutton.png", [0, 0], [250, 100])
+
 player = Player(["Images/Player.png",], [5,5], [50,50], [width/2,height/2])
 
 potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
@@ -55,6 +57,7 @@ while True:
         
         screen.blit(bgImage, bgRect)
         screen.blit(startbutton.image, startbutton.rect)
+        screen.blit(keyboardoption.image, keyboardoption.rect)
         pygame.display.flip()
         clock.tick(60)
     
