@@ -26,7 +26,9 @@ bgColor = r,g,b = 0,0,0
 
 startbutton = Button("Images/backgrounds/startbutton.png", [width/2, height/2], [250, 100])
 
-keyboardoption = Button("Images/backgrounds/mousebutton.png", [0, 0], [250, 100])
+mouseoption = Button("Images/backgrounds/mousebutton.png", [width/4, height/1.3], [200, 50])
+
+keyboardoption = Button("Images/backgrounds/arrowkeysbutton.png", [width/1.35, height/1.3], [250, 50])
 
 player = Player(["Images/Player.png",], [5,5], [50,50], [width/2,height/2])
 
@@ -57,6 +59,7 @@ while True:
         
         screen.blit(bgImage, bgRect)
         screen.blit(startbutton.image, startbutton.rect)
+        screen.blit(mouseoption.image, mouseoption.rect)
         screen.blit(keyboardoption.image, keyboardoption.rect)
         pygame.display.flip()
         clock.tick(60)
