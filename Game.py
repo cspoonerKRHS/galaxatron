@@ -40,6 +40,7 @@ powerUps = []
 start = False
 cutScreen = False
 level = 0
+mousecontrols= False
 while True:
     while not start and not cutScreen:
         for event in pygame.event.get():
@@ -50,6 +51,12 @@ while True:
                     start = True
                     cutScreen = True
                     level = 1
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if mouseoption.collidePoint(event.pos):
+                    mousecontrols= True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if keyboardoption.collidePoint(event.pos):
+                    mousecontrols= False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if startbutton.collidePoint(event.pos):
                 
@@ -65,11 +72,14 @@ while True:
         clock.tick(60)
     
     bgImage = pygame.image.load("Images/backgrounds/basenoplanet.png")
+    pygame.mouse.set_visible(not mousecontrols)
     
     while start and cutScreen:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                cutScreen = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE or (event.key == pygame.K_RETURN and not altFlag):
                     cutScreen = False
@@ -100,14 +110,15 @@ while True:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.direction("right")
-                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.direction("left")
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    player.direction("up")
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.direction("down")
+                if not mousecontrols:
+                    if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                        player.direction("right")
+                    if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                        player.direction("left")
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        player.direction("up")
+                    if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        player.direction("down")
                 if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
                     altFlag = True
                 if (event.key == pygame.K_RETURN) and altFlag:
@@ -118,16 +129,20 @@ while True:
                     screen = pygame.display.set_mode((width,height),fullscreen)
                     pygame.display.flip()
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.direction("stop right")
-                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.direction("stop left")
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    player.direction("stop up")
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.direction("stop down")
+                if not mousecontrols:
+                    if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                        player.direction("stop right")
+                    if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                        player.direction("stop left")
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        player.direction("stop up")
+                    if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        player.direction("stop down")
                 if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
                     altFlag = False
+            if event.type== pygame.MOUSEMOTION:
+                if mousecontrols:
+                    player.place(event.pos)
                 
 
         if random.randint(0,1000) == 0:   #1 in 60 chance
