@@ -28,7 +28,7 @@ startbutton = Button("Images/backgrounds/startbutton.png", [width/2, height/2], 
 
 mouseoption = Button("Images/backgrounds/mousebutton.png", [width/4, height/1.3], [200, 50])
 
-keyboardoption = Button("Images/backgrounds/arrowkeysbutton.png", [width/1.35, height/1.3], [250, 50])
+keyboardoption = Button("Images/backgrounds/arrowkeysbuttonclicked.png", [width/1.35, height/1.3], [250, 50])
 
 player = Player(["Images/Player.png",], [5,5], [50,50], [width/2,height/2])
 
@@ -54,8 +54,12 @@ while True:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if mouseoption.collidePoint(event.pos):
                     mousecontrols= True
+                    mouseoption.setImage("Images/backgrounds/mousebuttonclicked.png")
+                    keyboardoption.setImage("Images/backgrounds/arrowkeysbutton.png")
                 if keyboardoption.collidePoint(event.pos):
                     mousecontrols= False
+                    mouseoption.setImage("Images/backgrounds/mousebutton.png")
+                    keyboardoption.setImage("Images/backgrounds/arrowkeysbuttonclicked.png")
                 if startbutton.collidePoint(event.pos):
                 
                     start = True
