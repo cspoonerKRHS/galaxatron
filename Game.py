@@ -54,10 +54,8 @@ while True:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if mouseoption.collidePoint(event.pos):
                     mousecontrols= True
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if keyboardoption.collidePoint(event.pos):
                     mousecontrols= False
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 if startbutton.collidePoint(event.pos):
                 
                     start = True
