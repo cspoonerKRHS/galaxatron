@@ -120,7 +120,7 @@ while True:
         pygame.display.flip() 
         clock.tick(60)
               
-    while start and not cutScreen and level <= 3:
+    while start and not cutScreen and level <= 20:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
