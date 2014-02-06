@@ -226,7 +226,7 @@ while True:
         clock.tick(60)
         
     bgImage = pygame.image.load("Images/backgrounds/youwin.png")
-    while start and level > 3:
+    while start and level > 20:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
