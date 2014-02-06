@@ -27,19 +27,24 @@ class Potato():
         self.slowTimer = self.slowTimeMax
         self.speedTimeMax = 60*10
         self.speedTimer = self.speedTimeMax
-        
+        self.coolDownMax = 5
+        self.coolDown = 0
+        self.invincible = False
     
     def hit(self):
-        if self.living:
-            self.image = pygame.image.load("Images/Ghost_Potato.png")
-            #self.image = pygame.transform.scale(self.image, size)
-            self.rect = self.image.get_rect(center = self.rect.center)
-            self.living = False
-        else:
-            self.image = pygame.image.load("Images/Potato.png")
-            #self.image = pygame.transform.scale(self.image, size)
-            self.rect = self.image.get_rect(center = self.rect.center)
-            self.living = True
+        if not self.invincible:
+            self.invincible = True
+            self.coolDown = self.coolDownMax
+            if self.living:
+                self.image = pygame.image.load("Images/Ghost_Potato.png")
+                #self.image = pygame.transform.scale(self.image, size)
+                self.rect = self.image.get_rect(center = self.rect.center)
+                self.living = False
+            else:
+                self.image = pygame.image.load("Images/Potato.png")
+                #self.image = pygame.transform.scale(self.image, size)
+                self.rect = self.image.get_rect(center = self.rect.center)
+                self.living = True
         
     def place(self, pos):
         self.rect.center = pos
@@ -66,6 +71,10 @@ class Potato():
             else:
                 self.hitcounter = 3
                 self.didhit = False
+        if self.coolDown > 0:
+            self.coolDown -= 1
+        else:
+            self.invincible = False
         
     def move(self):
         self.speed = [self.speedx, self.speedy]

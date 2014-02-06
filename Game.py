@@ -30,7 +30,7 @@ mouseoption = Button("Images/backgrounds/mousebutton.png", [width/4, height/1.3]
 
 keyboardoption = Button("Images/backgrounds/arrowkeysbuttonclicked.png", [width/1.35, height/1.3], [200, 25])
 
-player = Player(["Images/Player.png",], [5,5], [50,50], [width/2,height/2])
+player = Player(["Images/Player.png",], [7,7], [50,50], [width/2,height/2])
 
 potatoes = [Potato([random.randint(3,3), random.randint(6,6)],  
               [random.randint(75, width-75), random.randint(75, height-75)])]
@@ -120,7 +120,7 @@ while True:
         pygame.display.flip() 
         clock.tick(60)
               
-    while start and not cutScreen:
+    while start and not cutScreen and level <= 3:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -213,8 +213,9 @@ while True:
                 potato.hit()
             potatoes += [Potato([random.randint(3,3), random.randint(6,6)],  
                                 [random.randint(75, width-75), random.randint(75, height-75)])]
-            
+                                
                          
+        screen.fill((0,0,0))
         screen.blit(bgImage, bgRect)
         for powerUp in powerUps:
             screen.blit(powerUp.image, powerUp.rect)
@@ -223,3 +224,32 @@ while True:
             screen.blit(potato.image, potato.rect)
         pygame.display.flip()
         clock.tick(60)
+        
+    bgImage = pygame.image.load("Images/backgrounds/youwin.png")
+    while start and level > 3:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE or (event.key == pygame.K_RETURN and not altFlag):
+                    start = False
+                    cutScreen = False
+                    level = 0
+                    bgImage = pygame.image.load("Images/backgrounds/startmenu.png")
+                    pygame.mouse.set_visible(mousecontrols)
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                        altFlag = True
+                if (event.key == pygame.K_RETURN) and altFlag:
+                    if fullscreen == 0:
+                        fullscreen = pygame.FULLSCREEN
+                    else:
+                        fullscreen = 0
+                    screen = pygame.display.set_mode((width,height),fullscreen)
+                    pygame.display.flip()
+            if event.type == pygame.KEYUP:
+                if (event.key == pygame.K_RALT or event.key == pygame.K_LALT):
+                    altFlag = False
+        
+        screen.blit(bgImage, bgRect)
+        pygame.display.flip() 
+        clock.tick()
