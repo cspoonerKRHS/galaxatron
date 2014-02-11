@@ -27,7 +27,7 @@ class Potato():
         self.slowTimer = self.slowTimeMax
         self.speedTimeMax = 60*10
         self.speedTimer = self.speedTimeMax
-        self.coolDownMax = 5
+        self.coolDownMax = 15
         self.coolDown = 0
         self.invincible = False
     
